@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nageswararao Nambari - Creative Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- GSAP and ScrollTrigger for advanced dynamic animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/ScrollTrigger.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(112deg, #1d3557 0%, #4572b9 66%, #dee2e6 100%);
+      color: #fff;
+      font-family: 'Poppins', Arial, sans-serif;
+      margin: 0 2px 0 2px; padding: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    /* Hero Section */
+    .hero {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 82vh; text-align: center; position: relative; overflow: hidden;
+      background: radial-gradient(circle at 60% 40%, #24518a 0%, #1d3557 85%);
+    }
+    .profile-pic {
+      width: 120px; height:120px; border-radius: 50%; box-shadow:0 6px 42px #2661a6aa;
+      border:5px solid #fff; object-fit:cover; margin-bottom:18px; background:#eaeaea;
+      animation: profilepulse 2.7s infinite alternate;
+    }
+    @keyframes profilepulse {
+      to{box-shadow:0 14px 86px #2fa8ec88;}
+    }
+    .hero-title {
+      font-family: 'Outfit', sans-serif; 
+      font-size: 3rem; font-weight: 700;
+      letter-spacing: 2px; margin: 0 0 13px 0;
+      background: linear-gradient(90deg, #89f7fe 0%, #66a6ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 8px 35px #0007;
+      position: relative;
+    }
+    .hero-desc {
+      font-size: 1.2rem; max-width: 550px; margin: 0 auto 33px auto; color: #dce6f7;
+    }
+    .hero-socials {
+      display: flex; gap: 20px; justify-content: center; margin-bottom: 40px;
+    }
+    .hero-socials a {
+      background: #202e47aa;
+      color: #fafbfc;
+      font-size: 1.33em;
+      width: 52px; height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      box-shadow: 0 7px 22px #15335b33;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, transform 0.13s;
+      border:2.2px solid #48cae4;
+    }
+    .hero-socials a:hover {
+      background: #48cae4;
+      color: #273041;
+      transform: scale(1.12) rotate(6deg);
+      box-shadow: 0 15px 61px #3bd6ff66;
+      border-color: #273041;
+    }
+    .tagline {
+      margin-top: 14px; font-size: 1.07rem; color: #b5e5f5;
+      letter-spacing: 1px; font-style: italic;
+    }
+    .floating-shape {
+      position:absolute; border-radius:50%; filter: blur(6px); opacity:.19; z-index: 0;
+    }
+    .float1{ width:200px; height:200px; background:#48cae4; left:-80px; top:48px;}
+    .float2{ width:130px; height:130px; background:#b5fffc; right:12vw; top:15px;}
+    .float3{ width:125px; height:125px; background:#ffb5a7; right:15vw; bottom:43px;}
+    /* Section Titles with Animation */
+    .animated-title {
+      font-size:2.1rem; font-family: 'Outfit',sans-serif;
+      margin:58px 0 22px 0; letter-spacing:1px;
+      color:#90f7fa; text-shadow:0 3px 21px #0002;
+      text-align:center; z-index:2; position:relative;
+      transition: letter-spacing 0.23s;
+    }
+    .animated-title.anim { letter-spacing:4px; color:#e8f8ff; transform:scale(1.02);}
+    /* Projects Grid Animated Cards */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 34px;
+      justify-content:center;
+      margin: 3vw 5vw;
+    }
+    .project-card {
+      background: linear-gradient(125deg, #282e71 68%, #2596be 100%);
+      border-radius: 18px; padding: 38px 28px 22px 28px; 
+      color: #fff; box-shadow:0 8px 38px #00548b37;
+      position: relative; overflow:hidden;
+      min-height:230px;
+      outline:2.5px solid #44b6ef18;
+      transition: box-shadow 0.21s, transform 0.19s, outline 0.17s;
+      cursor:pointer;
+    }
+    .project-card:hover {
+      box-shadow:0 22px 62px #1c45cd4d;
+      transform: translateY(-11px) scale(1.045) rotate(-1deg);
+      outline:2.5px solid #89f7fe77;
+    }
+    .project-title {
+      font-family: 'Outfit', sans-serif; font-size: 1.27rem; font-weight: 700; margin-bottom: 7px;
+      color:#b2ffd6;
+    }
+    .project-desc {font-size:1.03em; color:#e4f4ff;}
+    .project-meta {
+      font-size: .94em; color:#92e3f3; margin-top:13px;
+      position: absolute; bottom: 16px; left:28px;
+    }
+    .project-link {
+      color: #90f7fa; text-decoration: underline; font-weight: 700;
+      margin-left:6px;
+      transition: color 0.17s;
+    }
+    .project-link:hover {color:#ffb5a7;}
+    /* Skills Tag Section */
+    .skills-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 17px;
+      justify-content: center;
+      margin:32px auto 14px auto;
+      max-width:1100px;
+    }
+    .skill-badge {
+      display:inline-block;
+      background:linear-gradient(97deg,#fffdfa 0,#90f7fa 45%,#fbc2eb 87%);
+      color:#23385e;
+      border-radius:17px;
+      font-weight:700;
+      padding:12px 30px;margin:0 0 5px 0;
+      font-size:1.07em; letter-spacing:0.5px;
+      box-shadow:0 1.3px 10px #1d355743;
+      border:2.1px solid #44b6ef15;
+      transition:background .21s,transform .13s;
+    }
+    .skill-badge:hover {
+      background:linear-gradient(97deg,#eae7ff 0,#fbc2eb 77%);
+      color:#203047;
+      transform:scale(1.14) rotate(-3deg);
+      box-shadow:0 5px 32px #90f7fa94;
+      cursor:pointer;
+    }
+    /* Timeline (Education) */
+    .timeline {border-left:5px solid #90f7fa;padding-left:32px; margin:0 auto 20px auto;}
+    .timeline-item {margin-bottom:32px;position:relative;max-width:95%;}
+    .timeline-item::before {
+      content: ""; position: absolute; left: -23px; top:9px;
+      width:18px; height:18px; border-radius:50%;
+      background: linear-gradient(115deg,#09b18f20 50%,#fcb1e199 100%);
+      border:2.7px solid #44b6ef88;
+      box-shadow:0 4px 18px #90f7fa46;
+    }
+
+
+    /* Education Cards */
+.edu-card {
+  margin-bottom: 50px;
+  padding: 22px 28px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #1e2a47, #223b72);
+  box-shadow: 0 10px 28px #0a2348cc;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.edu-card::before {
+  content: "";
+  position: absolute;
+  left: -25px; top: 20px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: #48cae4;
+  box-shadow: 0 0 18px #48cae4aa;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(1); box-shadow:0 0 10px #48cae4aa; }
+  50% { transform: scale(1.3); box-shadow:0 0 22px #48cae4cc; }
+  100%{ transform: scale(1); box-shadow:0 0 10px #48cae4aa; }
+}
+
+.edu-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 16px 48px #48cae455;
+}
+
+.edu-year {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #90f7fa;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.edu-body {
+  font-size: 1.03em;
+  line-height: 1.5em;
+}
+
+.edu-score {
+  font-size: 0.95em;
+  color: #e6f8ff;
+  font-style: italic;
+}
+
+    /* Certifications */
+    .cert-card {
+      display:block;
+      background:linear-gradient(99deg,#f3ec78 0,#af4261 100%);
+      color:#fff; border-radius:14px;
+      padding:20px 21px; margin:26px auto 66px auto;
+      max-width:600px;font-weight:600; font-size:1.13em;
+      box-shadow:0 5px 30px #af426135;
+      outline:2.3px solid #e9456095;
+      transition:outline 0.19s, transform .14s;
+      text-align:center;
+    }
+    .cert-card:hover {outline:2.3px solid #f3ec78;transform:scale(1.03) rotate(-2deg);}
+    /* Responsive */
+    @media(max-width:900px){.project-grid{grid-template-columns:1fr;}.skills-flex{gap:10px;}}
+    @media(max-width:520px){
+      .hero-title{font-size:1.5rem;}
+      .skills-flex{gap:5px;}
+      .project-card{padding:19px 7vw;}
+    }
+    @media(max-width:400px){.project-card{padding:7vw 1vw;}}
+
+    /* Add or update these media queries at the end of your <style> block for better mobile responsiveness */
+
+@media (max-width: 900px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin: 3vw 2vw;
+  }
+  .skills-flex {
+    gap: 10px;
+    max-width: 98vw;
+  }
+  .cert-card {
+    max-width: 98vw;
+    padding: 16px 8vw;
+  }
+  form[style*="max-width"] {
+    max-width: 98vw !important;
+    padding: 18px 4vw !important;
+  }
+  .animated-title {
+    font-size: 1.5rem;
+    margin: 38px 0 18px 0;
+  }
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-desc {
+    font-size: 1rem;
+    max-width: 95vw;
+  }
+  .about-me {
+    max-width: 98vw !important;
+    padding: 18px 4vw !important;
+    font-size: 1em !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-title {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  .hero-desc {
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+  }
+  .profile-pic {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+  }
+  .hero-socials a {
+    width: 38px;
+    height: 38px;
+    font-size: 1em;
+  }
+  .project-card {
+    padding: 12px 4vw;
+    min-height: 160px;
+  }
+  .skills-flex {
+    gap: 6px;
+    padding: 0 2vw;
+  }
+  .skill-badge {
+    padding: 7px 16px;
+    font-size: 0.95em;
+  }
+  .cert-card {
+    font-size: 1em;
+    padding: 12px 2vw;
+  }
+  form[style*="max-width"] {
+    padding: 12px 2vw !important;
+  }
+  .animated-title {
+    font-size: 1.1rem;
+    margin: 28px 0 12px 0;
+  }
+  .about-me {
+    padding: 12px 2vw !important;
+    font-size: 0.95em !important;
+  }
+  .timeline {
+    padding-left: 12px;
+  }
+  .timeline-item {
+    max-width: 98vw;
+    margin-bottom: 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  .project-card {
+    padding: 7vw 1vw;
+  }
+  .cert-card {
+    padding: 8px 1vw;
+  }
+  form[style*="max-width"] {
+    padding: 8px 1vw !important;
+  }
+  .about-me {
+    padding: 8px 1vw !important;
+    font-size: 0.9em !important;
+  }
+}
+
+/* Make About Me section responsive by adding a class */
+.about-me {
+  max-width: 650px;
+  margin: 0 auto 38px auto;
+  padding: 24px 32px;
+  background: linear-gradient(120deg,#223b72 60%,#1e2a47 100%);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px #0a2348cc;
+  color: #e6f8ff;
+  font-size: 1.18em;
+  line-height: 1.7;
+}
+
+
+.contact-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  margin: 20px auto 40px;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(90deg, #48cae4 0%, #af4261 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px #af426135;
+  padding: 20px;
+  letter-spacing: 1px;
+  transition: box-shadow .2s;
+  max-width: 95%;
+}
+
+.contact-box .icon {
+  font-size: 1.3em;
+  margin-right: 6px;
+  margin-top: -4px;
+}
+
+.contact-box .highlight {
+  color: #223b72;
+  margin: 0 4px;
+}
+
+.contact-box .text {
+  color: #fff;
+  margin: 0 4px;
+}
+
+.contact-box .email-link {
+  display: inline-block;
+  margin: -4px 8px;
+  color: #223b72;
+  background: #fff;
+  padding: 6px 12px;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: 800;
+  box-shadow: 0 2px 12px #48cae4aa;
+  word-break: break-word; /* prevents overflow */
+  transition: background .2s;
+}
+.contact-box .email-link:hover {
+  background: #f0f0f0;
+}
+
+/* 📱 Mobile responsiveness */
+@media (max-width: 600px) {
+  .contact-box {
+    flex-direction: column;
+    padding: 16px;
+    font-size: 1em;
+  }
+  .contact-box .email-link {
+    font-size: 0.9em;
+    padding: 8px 10px;
+    margin: 8px auto;
+    max-width: 100%;
+  }
+}
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="floating-shape float1"></div>
+    <div class="floating-shape float2"></div>
+    <div class="floating-shape float3"></div>
+    <img src="https://avatars.githubusercontent.com/u/165397926?s=400&u=75a69a2df33d1e914a3b7ff8f8415ea25e8ec0af&v=4" alt="Profile" class="profile-pic" />
+    <div class="hero-title">Nageswararao Nambari</div>
+    <div class="hero-desc">MCA Graduate • Full Stack Developer<br>
+      <b>Python, Java, React, Django, SQL</b> | AI-integrated systems<br>
+      Building modern, beautiful applications for the future.
+    </div>
+    <div class="hero-socials">
+      <a href="mailto:nageswararaonambari2001@gmail.com" title="Email">&#9993;</a>
+      <a href="https://linkedin.com/in/nageswararaonambari" target="_blank" title="LinkedIn">&#128188;</a>
+      <a href="https://github.com/Nageshwar17" target="_blank" title="GitHub">&#128187;</a>
+      <a href="yourwebsite.com" target="_blank" title="Website">&#127760;</a>
+    </div>
+    <div class="tagline">Let’s make code & design shine together.</div>
+  </section>
+
+  <!-- About Me Section -->
+  <section>
+    <div class="animated-title">About Me</div>
+    <div class="about-me">
+      Hello! I’m <b>Nageswararao Nambari</b>, a passionate MCA graduate and full stack developer. I love building modern, user-friendly applications that blend technology and creativity. My expertise spans Python, Java, React, Django, and SQL, with a keen interest in AI-integrated systems and beautiful UI/UX.<br><br>
+      I enjoy collaborating on innovative projects, learning new tools, and solving real-world problems with code. Whether it’s web, desktop, or cloud, I strive to deliver solutions that make a difference.<br><br>
+      <b>Let’s connect and create something amazing together!</b>
+    </div>
+  </section>
+
+  <!-- Projects Section (replace existing .project-grid content) -->
+  <section>
+    <div class="animated-title">Creative Projects</div>
+    <div class="project-grid">
+      <div class="project-card">
+        <div class="project-title">Farming Equipment Rental System</div>
+        <div class="project-desc">
+          Built a <b>full-stack Django + React</b> web platform enabling farmers and equipment owners to list, browse, and rent agricultural machinery, with AI chatbot support, Weather API insights, integrated payment gateway, and role-based user access. <b>Responsive design</b>.
+        </div>
+        <div class="project-meta">
+          Nov 2024–Apr 2025
+          <a href="https://github.com/Nageshwar17/femrs" target="_blank" class="project-link">GitHub</a>
+          <a href="https://astounding-gecko-6de856.netlify.app/" target="_blank" class="project-link">Live</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-title">Ganesh Mandapam Organization Platform</div>
+        <div class="project-desc">
+          SPA for festival management: React, Firebase Auth, Firestore, posts, comments, likes, crafted for community teams. <b>Mobile-optimized</b>.
+        </div>
+        <div class="project-meta">
+          Aug 2025
+          <a href="https://github.com/Nageshwar17/Ganesh-Mandapam-Org" target="_blank" class="project-link">GitHub</a>
+          <a href="https://ganesh-mandapam-org.netlify.app/" target="_blank" class="project-link">Live</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-title">Music Player Application</div>
+        <div class="project-desc">
+          Developed a JavaFX/AWT music player with threaded playlist management, supporting playback controls (play, pause, next, previous, loop) and dynamic song selection from lists.
+        </div>
+        <div class="project-meta">
+          Mar–May 2024
+          <a href="https://github.com/Nageshwar17/CommandLine_Music_Player" target="_blank" class="project-link">GitHub</a>
+          <!-- No live link for desktop app -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="animated-title">Core Skills</div>
+    <div class="skills-flex">
+      <span class="skill-badge">Python</span>
+      <span class="skill-badge">C</span>
+      <span class="skill-badge">Java</span>
+      <span class="skill-badge">Django</span>
+      <span class="skill-badge">Django REST</span>
+      <span class="skill-badge">Flask</span>
+      <span class="skill-badge">React</span>
+      <span class="skill-badge">JavaScript</span>
+      <span class="skill-badge">WordPress</span>
+      <span class="skill-badge">Git</span>
+      <span class="skill-badge">GitHub</span>
+      <span class="skill-badge">MySQL</span>
+      <span class="skill-badge">PostgreSQL</span>
+      <span class="skill-badge">Figma</span>
+      <span class="skill-badge">Power Apps</span>
+      <span class="skill-badge">Power Automate</span>
+      <span class="skill-badge">SharePoint</span>
+      <span class="skill-badge">Microsoft 365</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="animated-title">Education</div>
+  <div class="timeline">
+    <div class="timeline-item edu-card">
+      <div class="edu-year">2023 - 2025</div>
+      <div class="edu-body">
+        <b>MCA</b>, Godavari Institute of Engineering & Technology, Rajahmundry, Andhra Pradesh<br>
+        <span class="edu-score">CGPA: 7.70</span>
+      </div>
+    </div>
+  </div>
+    <div class="animated-title">Certifications</div>
+    <div class="cert-card">
+      <a href="https://www.guvi.in/share-certificate/46761A3b05yDG21ldQ" target="_blank" style="color:#fff;text-decoration:underline;">
+        Mastering Figma: Beginner to Expert UI/UX
+      </a><br>
+      GUVI Skill-A-Thon (May 2024)
+    </div>
+    <div class="cert-card">
+      <a href="https://verify.letsupgrade.in/certificate/LUERJSDEC1241646" target="_blank" style="color:#fff;text-decoration:underline;">
+        React Bootcamp
+      </a><br>
+      LetsUpgrade (Feb 2025)
+    </div>
+    <div class="cert-card">
+      <a href="https://verify.letsupgrade.in/certificate/LUEGGDEC1241465" target="_blank" style="color:#fff;text-decoration:underline;">
+        Git & GitHub Bootcamp
+      </a><br>
+      LetsUpgrade (Feb 2025)
+    </div>
+  </section>
+
+  <section>
+    <div class="animated-title">Contact Me</div>
+    <form action="https://formspree.io/f/mdklkjzd" method="POST" style="max-width:580px;margin:0 auto 60px auto;padding:28px 40px;background:linear-gradient(120deg,#1e2a47 60%,#223b72 100%);border-radius:16px;box-shadow:0 8px 32px #0a2348cc;color:#fff;">
+      <label for="name" style="display:block;margin-bottom:8px;font-weight:600;">Name</label>
+      <input type="text" id="name" name="name" required style="width:94%;padding:10px 12px;margin-bottom:16px;border-radius:8px;border:none;background:#e6f8ff;color:#223b72;font-size:1em;">
+      <label for="email" style="display:block;margin-bottom:8px;font-weight:600;">Email</label>
+      <input type="email" id="email" name="email" required style="width:94%;padding:10px 12px;margin-bottom:16px;border-radius:8px;border:none;background:#e6f8ff;color:#223b72;font-size:1em;">
+      <label for="message" style="display:block;margin-bottom:8px;font-weight:600;">Message</label>
+      <textarea id="message" name="message" rows="4" required style="width:94%;padding:10px 12px;border-radius:8px;border:none;background:#e6f8ff;color:#223b72;font-size:1em;margin-bottom:18px;"></textarea>
+      <button type="submit" style="background:#48cae4;color:#223b72;font-weight:700; margin-left: 240px; padding:12px 35px;border:none;border-radius:8px;cursor:pointer;transition:background 0.2s;">Send</button>
+    </form>
+    <div class="contact-box">
+  <span class="icon">&#128231;</span>
+  <span class="highlight">Recruiters & collaborators:</span>
+  <span class="text">Email me directly at</span>
+  <a href="mailto:nageswararaonambari2001@gmail.com" class="email-link">
+    nageswararaonambari2001@gmail.com
+  </a>
+  <span class="text">— I reply fast!</span>
+</div>
+  </section>
+
+  <script>
+    // Register GSAP plugins if needed
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero entrance
+    gsap.from(".profile-pic", {opacity:0, scale:0.5, y:60, duration:1, ease:"back.out(1.6)"});
+    gsap.from(".hero-title", { opacity: 0, y: 80, duration: 1.3, delay:0.2, ease: "expo.out"});
+    gsap.from(".hero-desc", { opacity: 0, y: 50, duration: 1, delay:.4, ease: "power2.out"});
+    gsap.from(".hero-socials a", { opacity: 0, scale:0.7, stagger: 0.10, delay:.6, duration:1.1, ease:"elastic.out(1, 1)"});
+    gsap.from(".tagline", {opacity:0, y:30, duration:1, delay:1, ease:"expo.out"});
+
+    // Animated section titles
+    gsap.utils.toArray(".animated-title").forEach(function(title, i){
+      gsap.from(title, {
+        scrollTrigger: {
+          trigger: title,
+          start:"top 85%",
+        },
+        opacity:0,
+        y:30,
+        duration:.6 + (i*0.14),
+        ease:"expo.out",
+        onStart:()=>title.classList.add('anim'),
+        onReverseComplete:()=>title.classList.remove('anim')
+      });
+    });
+
+    // Project cards animation
+    gsap.utils.toArray(".project-card").forEach(function(card,i){
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card, start:"top 86%",
+        },
+        opacity:0,
+        y:50,
+        scale:.93,
+        duration:.8 + i*0.09,
+        ease:"power3.out"
+      });
+    });
+
+    // Skills animation
+    gsap.utils.toArray(".skill-badge").forEach(function(skill,i){
+      gsap.from(skill, {
+        scrollTrigger:{trigger: skill, start:"top 93%"},
+        opacity:0, y:24, scale:.74,
+        duration:.55 + 0.011*i*i,
+        delay:0.05*i,
+        ease:"elastic.out(1,0.6)"
+      });
+    });
+
+    // Timeline animation
+    // Education (Timeline) animations
+gsap.utils.toArray(".edu-card").forEach((card, i) => {
+  gsap.from(card, {
+    scrollTrigger: {
+      trigger: card,
+      start: "top 88%",
+    },
+    opacity: 0,
+    x: i % 2 === 0 ? -80 : 80,
+    rotate: i % 2 === 0 ? -4 : 4,
+    duration: 0.9,
+    delay: i * 0.2,
+    ease: "back.out(1.7)"
+  });
+});
+
+
+    // Certification card animation
+    gsap.from(".cert-card",{
+      scrollTrigger:{trigger:".cert-card",start:"top 87%"},
+      opacity:0, scale:0.86, y:50,
+      duration:1.1,
+      ease:"power2.out"
+    });
+
+    // Floating shapes parallax
+    gsap.to(".float1",{y:45, x:13, duration:7, yoyo:true,repeat:-1, ease:"sine.inOut"});
+    gsap.to(".float2",{y:-18, duration:8.5, yoyo:true,repeat:-1, ease:"sine.inOut"});
+    gsap.to(".float3",{y:60, x:9, duration:9.7, yoyo:true,repeat:-1, ease:"sine.inOut"});
+
+    // Scroll-based color change for sections
+    const sections = document.querySelectorAll("section");
+    const scrollHandler = () => {
+      let scrollPos = window.scrollY + window.innerHeight / 2;
+      sections.forEach(section => {
+        const {offsetTop: top, offsetHeight: height, id} = section;
+        if(scrollPos >= top && scrollPos < top + height) {
+          current = section.id;
+        }
+      });
+    };
+    window.addEventListener("scroll", scrollHandler);
+  </script>
+</body>
+</html>
