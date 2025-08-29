@@ -33,7 +33,21 @@ Portfolio/
 ├── assets/ # Images, icons, and media
 └── README.md # Project documentation
 
+📦 Installation & Setup
 
+If you’d like to run the project locally:
+
+# Clone the repository
+git clone https://github.com/Nageshwar17/Portfolio.git
+
+# Navigate into the project folder
+cd Portfolio
+
+# Open in browser
+open index.html   # (or double-click index.html)
+
+
+No build tools required – it’s a static portfolio.
 ---
 
 ## 📧 Contact  
@@ -50,4 +64,4 @@ This is my personal portfolio, but suggestions are welcome! Feel free to fork, r
 ---
 
 ## 📜 License  
-This project is licensed under the **MIT License** – you’re free to use and modify with proper credit. 
+This project is open-source and available under the MIT License.
